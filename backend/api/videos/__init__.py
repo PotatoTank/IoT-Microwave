@@ -37,17 +37,26 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
         See logs for full stacktrace.
         """.format(e), 500
 
+    current_video
 
     @app.route("/videos", methods=['GET'])
     def get_videos():
         sec = int(request.args.get('sec'), 0)
         result = Video.query.order_by('abs(duration - %d)' % sec ).limit(1).first()
-	if result == None:
-		return jsonify([])
+        if result == None:
+            return jsonify([])
 
+        current_video = result.url
         return jsonify(result.serialize())
 
+    @app.route("/recent", methods=['GET'])
+    def watch_recent():
+        return jsonify({
+           'current': current_video
+        })
+
     return app
+
 
 def get_model():
     model_backend = current_app.config['DATA_BACKEND']
