@@ -49,12 +49,6 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
         current_video = result.url
         return jsonify(result.serialize())
 
-    @app.route("/recent", methods=['GET'])
-    def watch_recent():
-        return jsonify({
-           'current': current_video
-        })
-
     return app
 
 
