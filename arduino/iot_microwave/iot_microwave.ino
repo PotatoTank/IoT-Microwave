@@ -214,13 +214,13 @@ void debounce(int num) {
 void output(int num) {
   if (num == lastOutput) {
     if ((millis() - lastOutputTime) > DELAY) {
-      Serial.println(String(num));
+      Serial.print(String(num));
       lastOutput = num;
       lastOutputTime = millis();
     }
   }
   else {
-      Serial.println(String(num));
+      Serial.print(String(num));
       lastOutput = num;
       lastOutputTime = millis();
     }
