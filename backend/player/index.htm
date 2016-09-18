@@ -36,6 +36,9 @@ iframe {
         console.log(window.enabled);
         if (window.enabled == true) {
             $.get("http://localhost:3000", function(data) {
+            if (time == data) {
+                return;
+            }
             time = data;
             console.log(time);
             if (time != 0) {
