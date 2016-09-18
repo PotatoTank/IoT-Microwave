@@ -24,16 +24,33 @@ iframe {
 </style>
 
 <script>
+    var time = 0;
     var url = "http://104.197.13.17/videos?sec=";
+    var enabled = true;
 
     $(document).ready(function() {
-        $.get(url + 30, function(data) {
-            $('#player').attr('src', 'http://www.youtube.com/embed/' + data.url + '?rel=0&autoplay=1');
-            setTimeout(function() {
-                $('#player').attr('src', '');
-            }, data.duration * 1000 + 800);
-        });
+        var getIntervalId = setInterval(sendRequest, 1000);
     });
+    
+    function sendRequest() {
+        console.log(window.enabled);
+        if (window.enabled == true) {
+            $.get("http://localhost:3000", function(data) {
+            time = data;
+            console.log(time);
+            if (time != 0) {
+                window.enabled = false;
+                $.get(url + parseInt(time), function(data) {
+                    $('#player').attr('src', 'http://www.youtube.com/embed/' + data.url + '?rel=0&autoplay=1');
+                    setTimeout(function() {
+                        $('#player').attr('src', '');
+                        window.enabled = true;
+                    }, data.duration * 1000 + 800);
+            });
+            }
+        })
+        }
+    }
 </script>
 </head>
 <body>
