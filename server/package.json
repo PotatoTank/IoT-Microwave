@@ -1,0 +1,24 @@
+{
+  "name": "serial-server",
+  "version": "1.0.0",
+  "description": "A local webserver that exposes serial data being transmitted over USB",
+  "main": "\t",
+  "dependencies": {
+    "express": "^4.14.0",
+    "serialport": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PotatoTank/IoT-Microwave/tree/master/server"
+  },
+  "keywords": [
+    "server",
+    "serial"
+  ],
+  "author": "Karl Ding",
+  "license": "MIT"
+}
