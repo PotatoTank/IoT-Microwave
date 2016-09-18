@@ -28,6 +28,14 @@ class Video(db.Model):
 
    def __repr(self):
        return "<Video(id='%s', type='%s', url='%s'" % (self.id, self.type, self.url)
+   
+   def serialize(self):
+       return {
+          'id': self.id,
+          'type': self.type,
+          'url': self.url,
+          'duration': self.duration
+	}
 
 def read(id):
     result = Video.query.get(id)

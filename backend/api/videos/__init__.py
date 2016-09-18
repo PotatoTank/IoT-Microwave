@@ -1,6 +1,6 @@
 import logging
 import model
-from flask import current_app, Flask, redirect, url_for, request
+from flask import current_app, Flask, redirect, url_for, request, jsonify
 from model import Video
 
 def create_app(config, debug=False, testing=False, config_overrides=None):
@@ -40,9 +40,12 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
 
     @app.route("/videos", methods=['GET'])
     def get_videos():
-        sec = request.args.get('sec')
-        result = Video.query.order_by(abs(model.Video.duration - sec), ASC).limit(1)
-        return result
+        sec = int(request.args.get('sec'), 0)
+        result = Video.query.order_by('abs(duration - %d)' % sec ).limit(1).first()
+	if result == None:
+		return jsonify([])
+
+        return jsonify(result.serialize())
 
     return app
 
